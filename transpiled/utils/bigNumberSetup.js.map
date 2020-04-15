@@ -1,0 +1,1 @@
+{"version":3,"file":"bigNumberSetup.js","sourceRoot":"","sources":["../../utils/bigNumberSetup.ts"],"names":[],"mappings":";;AAAA,oBAAoB;AACpB,6CAAyC;AACzC,mBAAmB;AAEN,QAAA,cAAc,GAAG;IAC1B,SAAS;QACL,6FAA6F;QAC7F,iGAAiG;QACjG,wBAAS,CAAC,MAAM,CAAC;YACb,cAAc,EAAE,IAAI;SACvB,CAAC,CAAC;IACP,CAAC;CACJ,CAAC"}
