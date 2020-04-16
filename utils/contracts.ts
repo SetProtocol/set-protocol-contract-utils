@@ -1,16 +1,13 @@
 export { BaseContract } from '../types/base_contract';
 export { AddressToAddressWhiteListContract } from '../types/generated/address_to_address_white_list';
 export { AuthorizableContract } from '../types/generated/authorizable';
-// export { Bytes32LibraryContract } from '../types/generated/bytes32_library';
 export { Bytes32LibraryMockContract } from '../types/generated/bytes32_library_mock';
-// export { CommonMathContract } from '../types/generated/common_math';
 export { CommonMathMockContract } from '../types/generated/common_math_mock';
-// export { CommonValidationsLibraryContract } from '../types/generated/common_validations_library';
 export { CommonValidationsLibraryMockContract } from '../types/generated/common_validations_library_mock';
-// export { CompoundUtilsContract } from '../types/generated/compound_utils';
 export { CompoundUtilsMockContract } from '../types/generated/compound_utils_mock';
 export { LimitOneUpgradeMockContract } from '../types/generated/limit_one_upgrade_mock';
 export { OracleWhiteListContract } from '../types/generated/oracle_white_list';
+export { ScaleValidationsMockContract } from '../types/generated/scale_validations_mock';
 export { TimeLockUpgradeMockContract } from '../types/generated/time_lock_upgrade_mock';
 export { TimeLockUpgradeV2MockContract } from '../types/generated/time_lock_upgrade_v2_mock';
 export { UnrestrictedTimeLockUpgradeMockContract } from '../types/generated/unrestricted_time_lock_upgrade_mock';

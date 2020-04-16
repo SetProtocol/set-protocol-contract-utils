@@ -1,10 +1,11 @@
 import { Address } from 'set-protocol-utils';
 import * as _ from 'lodash';
 import {
-  CommonValidationsLibraryMockContract,
   Bytes32LibraryMockContract,
+  CommonValidationsLibraryMockContract,
   CommonMathMockContract,
   CompoundUtilsMockContract,
+  ScaleValidationsMockContract
   // SetMathMockContract,
   // SetTokenLibraryMockContract,
   // SetUSDValuationMockContract,
@@ -24,6 +25,7 @@ const CommonMathMock = importArtifactsFromSource('CommonMathMock');
 const CommonValidationsLibrary = importArtifactsFromSource('CommonValidationsLibrary');
 const CommonValidationsLibraryMock = importArtifactsFromSource('CommonValidationsLibraryMock');
 const CompoundUtilsMock = importArtifactsFromSource('CompoundUtilsMock');
+const ScaleValidationsMock = importArtifactsFromSource('ScaleValidationsMock');
 // const SetMathMock = importArtifactsFromSource('SetMathMock');
 // const SetTokenLibrary = importArtifactsFromSource('SetTokenLibrary');
 // const SetTokenLibraryMock = importArtifactsFromSource('SetTokenLibraryMock');
@@ -78,6 +80,14 @@ export class LibraryMockHelper {
     const compoundUtilsMockContract = await CompoundUtilsMock.new(txnFrom(from));
 
     return new CompoundUtilsMockContract(getContractInstance(compoundUtilsMockContract), txnFrom(from));
+  }
+
+  public async deployScaleValidationsMockAsync(
+    from: Address = this._contractOwnerAddress
+  ): Promise<ScaleValidationsMockContract> {
+    const scaleValidationsMockContract = await ScaleValidationsMock.new(txnFrom(from));
+
+    return new ScaleValidationsMockContract(getContractInstance(scaleValidationsMockContract), txnFrom(from));
   }
 
   // public async deploySetMathAsync(
