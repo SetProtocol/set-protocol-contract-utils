@@ -47,7 +47,7 @@ contract('Authorizable', accounts => {
     ABIDecoder.removeABI(Authorizable.abi);
   });
 
-  describe.only('#onlyAuthorized', async () => {
+  describe('#onlyAuthorized', async () => {
     let subjectUint: BigNumber;
     let subjectCaller: Address = ownerAccount;
 
@@ -81,7 +81,7 @@ contract('Authorizable', accounts => {
     });
   });
 
-  describe.only('#addAuthorizedAddress', async () => {
+  describe('#addAuthorizedAddress', async () => {
     let caller: Address = ownerAccount;
 
     afterEach(async () => {
@@ -150,7 +150,7 @@ contract('Authorizable', accounts => {
     });
   });
 
-  describe.only('#removeAuthorizedAddress', async () => {
+  describe('#removeAuthorizedAddress', async () => {
     let caller: Address = ownerAccount;
     let addressToRemove: Address = authorizedAccount;
 
