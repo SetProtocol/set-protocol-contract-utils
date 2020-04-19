@@ -1,6 +1,6 @@
 export { BaseContract } from '../types/base_contract';
 export { AddressToAddressWhiteListContract } from '../types/generated/address_to_address_white_list';
-export { AuthorizableContract } from '../types/generated/authorizable';
+export { AuthorizableMockContract } from '../types/generated/authorizable_mock';
 export { Bytes32LibraryMockContract } from '../types/generated/bytes32_library_mock';
 export { CommonMathMockContract } from '../types/generated/common_math_mock';
 export { CommonValidationsLibraryMockContract } from '../types/generated/common_validations_library_mock';

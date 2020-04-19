@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import { Address } from 'set-protocol-utils';
 
 import {
-  AuthorizableContract,
+  AuthorizableMockContract,
   LimitOneUpgradeMockContract,
   TimeLockUpgradeMockContract,
   TimeLockUpgradeV2MockContract,
@@ -13,7 +13,7 @@ import {
 } from '../constants';
 import { getContractInstance, importArtifactsFromSource } from '../web3Helper';
 
-const Authorizable = importArtifactsFromSource('Authorizable');
+const AuthorizableMock = importArtifactsFromSource('AuthorizableMock');
 const TimeLockUpgradeMock = importArtifactsFromSource('TimeLockUpgradeMock');
 const TimeLockUpgradeV2Mock = importArtifactsFromSource('TimeLockUpgradeV2Mock');
 const UnrestrictedTimeLockUpgradeMock = importArtifactsFromSource('UnrestrictedTimeLockUpgradeMock');
@@ -26,15 +26,15 @@ export class PermissionHelper {
     this._contractOwnerAddress = contractOwnerAddress;
   }
 
-  public async deployAuthorizableAsync(
+  public async deployAuthorizableMockAsync(
     from: Address = this._contractOwnerAddress
-  ): Promise<AuthorizableContract> {
-    const truffleAuthorizable = await Authorizable.new(
+  ): Promise<AuthorizableMockContract> {
+    const truffleAuthorizableMock = await AuthorizableMock.new(
       { from, gas: DEFAULT_GAS },
     );
 
-    return new AuthorizableContract(
-      getContractInstance(truffleAuthorizable),
+    return new AuthorizableMockContract(
+      getContractInstance(truffleAuthorizableMock),
       { from, gas: DEFAULT_GAS },
     );
   }
@@ -92,7 +92,7 @@ export class PermissionHelper {
   }
 
   public async addAuthorizationAsync(
-    contract: AuthorizableContract,
+    contract: AuthorizableMockContract,
     toAuthorize: Address,
     from: Address = this._contractOwnerAddress
   ) {

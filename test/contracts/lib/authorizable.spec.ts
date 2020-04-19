@@ -2,12 +2,13 @@ require('module-alias/register');
 
 import * as ABIDecoder from 'abi-decoder';
 import * as chai from 'chai';
+import { BigNumber } from 'bignumber.js';
 import { Address } from 'set-protocol-utils';
 import * as setProtocolUtils from 'set-protocol-utils';
 
 import ChaiSetup from '@utils/chaiSetup';
 import { BigNumberSetup } from '@utils/bigNumberSetup';
-import { AuthorizableContract } from '@utils/contracts';
+import { AuthorizableMockContract } from '@utils/contracts';
 import { getExpectedAddAuthorizedLog, getExpectedRemoveAuthorizedLog } from '@utils/contract_logs/authorizable';
 import { expectRevertError } from '@utils/tokenAssertions';
 import { getWeb3 } from '@utils/web3Helper';
@@ -31,23 +32,57 @@ contract('Authorizable', accounts => {
     authAccount2,
   ] = accounts;
 
-  let authorizableContract: AuthorizableContract;
+  let authorizableContract: AuthorizableMockContract;
   const permissionHelper = new PermissionHelper(ownerAccount);
 
   before(async () => {
     ABIDecoder.addABI(Authorizable.abi);
   });
 
+  beforeEach(async () => {
+    authorizableContract = await permissionHelper.deployAuthorizableMockAsync(ownerAccount);
+  });
+
   after(async () => {
     ABIDecoder.removeABI(Authorizable.abi);
   });
 
-  describe('#addAuthorizedAddress', async () => {
-    let caller: Address = ownerAccount;
+  describe.only('#onlyAuthorized', async () => {
+    let subjectUint: BigNumber;
+    let subjectCaller: Address = ownerAccount;
 
     beforeEach(async () => {
-      authorizableContract = await permissionHelper.deployAuthorizableAsync();
+      subjectUint = new BigNumber(5);
+      subjectCaller = ownerAccount;
     });
+
+    async function subject(): Promise<string> {
+      return authorizableContract.testAuthorizable.sendTransactionAsync(
+        subjectUint,
+        { from: subjectCaller },
+      );
+    }
+
+    it('sets the uint correctly', async () => {
+      await subject();
+
+      const storedUint = await authorizableContract.testUint.callAsync();
+      expect(storedUint).to.eql(subjectUint);
+    });
+
+    describe('when the caller is not authorized', async () => {
+      beforeEach(async () => {
+        subjectCaller = otherAccount;
+      });
+
+      it('should revert', async () => {
+        await expectRevertError(subject());
+      });
+    });
+  });
+
+  describe.only('#addAuthorizedAddress', async () => {
+    let caller: Address = ownerAccount;
 
     afterEach(async () => {
       caller = ownerAccount;
@@ -74,8 +109,8 @@ contract('Authorizable', accounts => {
 
       const authoritiesArray = await authorizableContract.getAuthorizedAddresses.callAsync();
 
-      expect(authoritiesArray.length).to.eql(1);
-      expect(authoritiesArray[0]).to.eql(authorizedAccount);
+      expect(authoritiesArray.length).to.eql(2);
+      expect(authoritiesArray[1]).to.eql(authorizedAccount);
     });
 
     it('emits correct AddressAuthorized log', async () => {
@@ -115,13 +150,11 @@ contract('Authorizable', accounts => {
     });
   });
 
-  describe('#removeAuthorizedAddress', async () => {
+  describe.only('#removeAuthorizedAddress', async () => {
     let caller: Address = ownerAccount;
     let addressToRemove: Address = authorizedAccount;
 
     beforeEach(async () => {
-      authorizableContract = await permissionHelper.deployAuthorizableAsync();
-
       const authAccountArray: Address[] = [authAccount1, authAccount2, authorizedAccount];
       for (const account of authAccountArray) {
         await permissionHelper.addAuthorizationAsync(authorizableContract, account);
