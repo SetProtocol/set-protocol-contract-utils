@@ -1,5 +1,5 @@
 /*
-    Copyright 2019 Set Labs Inc.
+    Copyright 2020 Set Labs Inc.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -30,11 +30,11 @@ library BoundsLibrary {
         return _bounds.max > _bounds.min;
     }
 
-    function isWithin(Bounds storage _bounds, uint256 _value) internal view returns(bool) {
+    function isWithin(Bounds memory _bounds, uint256 _value) internal pure returns(bool) {
         return _value > _bounds.max ? false : _value >= _bounds.min;
     }
 
-    function isOutside(Bounds storage _bounds, uint256 _value) internal view returns(bool) {
+    function isOutside(Bounds memory _bounds, uint256 _value) internal pure returns(bool) {
         return !isWithin(_bounds, _value);
     }
 }
