@@ -15,6 +15,7 @@
 */
 
 pragma solidity 0.5.7;
+pragma experimental "ABIEncoderV2";
 
 
 library BoundsLibrary {
@@ -25,6 +26,10 @@ library BoundsLibrary {
     }
 
     /* ============ Functions ============ */
+    function isValid(Bounds memory _bounds) internal pure returns(bool) {
+        return _bounds.max > _bounds.min;
+    }
+
     function isWithin(Bounds storage _bounds, uint256 _value) internal view returns(bool) {
         return _value > _bounds.max ? false : _value >= _bounds.min;
     }

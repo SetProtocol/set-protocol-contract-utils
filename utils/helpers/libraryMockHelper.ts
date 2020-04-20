@@ -1,14 +1,12 @@
 import { Address } from 'set-protocol-utils';
 import * as _ from 'lodash';
 import {
+  BoundsLibraryMockContract,
   Bytes32LibraryMockContract,
   CommonValidationsLibraryMockContract,
   CommonMathMockContract,
   CompoundUtilsMockContract,
   ScaleValidationsMockContract
-  // SetMathMockContract,
-  // SetTokenLibraryMockContract,
-  // SetUSDValuationMockContract,
 } from '../contracts';
 import { BigNumber } from 'bignumber.js';
 import {
@@ -19,6 +17,7 @@ import {
 } from '../web3Helper';
 import { ZERO } from '../constants';
 
+const BoundsLibraryMock = importArtifactsFromSource('BoundsLibraryMock');
 const Bytes32Library = importArtifactsFromSource('Bytes32Library');
 const Bytes32LibraryMock = importArtifactsFromSource('Bytes32LibraryMock');
 const CommonMathMock = importArtifactsFromSource('CommonMathMock');
@@ -26,10 +25,6 @@ const CommonValidationsLibrary = importArtifactsFromSource('CommonValidationsLib
 const CommonValidationsLibraryMock = importArtifactsFromSource('CommonValidationsLibraryMock');
 const CompoundUtilsMock = importArtifactsFromSource('CompoundUtilsMock');
 const ScaleValidationsMock = importArtifactsFromSource('ScaleValidationsMock');
-// const SetMathMock = importArtifactsFromSource('SetMathMock');
-// const SetTokenLibrary = importArtifactsFromSource('SetTokenLibrary');
-// const SetTokenLibraryMock = importArtifactsFromSource('SetTokenLibraryMock');
-// const SetUSDValuationMock = importArtifactsFromSource('SetUSDValuationMock');
 
 
 export class LibraryMockHelper {
@@ -90,40 +85,15 @@ export class LibraryMockHelper {
     return new ScaleValidationsMockContract(getContractInstance(scaleValidationsMockContract), txnFrom(from));
   }
 
-  // public async deploySetMathAsync(
-  //   from: Address = this._contractOwnerAddress
-  // ): Promise<SetMathMockContract> {
-  //   const setMathMockContract = await SetMathMock.new(txnFrom(from));
+  public async deployBoundsLibraryMockAsync(
+    minBound: BigNumber,
+    maxBound: BigNumber,
+    from: Address = this._contractOwnerAddress
+  ): Promise<BoundsLibraryMockContract> {
+    const boundsLibraryMockContract = await BoundsLibraryMock.new(minBound, maxBound, txnFrom(from));
 
-  //   return new SetMathMockContract(
-  //     getContractInstance(setMathMockContract),
-  //     txnFrom(from),
-  //   );
-  // }
-
-  // public async deploySetTokenLibraryAsync(
-  //   from: Address = this._contractOwnerAddress
-  // ): Promise<SetTokenLibraryMockContract> {
-  //   await linkLibrariesToDeploy(SetTokenLibraryMock, [SetTokenLibrary], this._contractOwnerAddress);
-
-  //   const setTokenLibraryMockContract = await SetTokenLibraryMock.new(txnFrom(from));
-
-  //   return new SetTokenLibraryMockContract(
-  //     getContractInstance(setTokenLibraryMockContract),
-  //     txnFrom(from),
-  //   );
-  // }
-
-  // public async deploySetUSDValuationMockAsync(
-  //   from: Address = this._contractOwnerAddress
-  // ): Promise<SetUSDValuationMockContract> {
-  //   const setValuationMockContract = await SetUSDValuationMock.new(txnFrom(from));
-
-  //   return new SetUSDValuationMockContract(
-  //     getContractInstance(setValuationMockContract),
-  //     txnFrom(from),
-  //   );
-  // }
+    return new BoundsLibraryMockContract(getContractInstance(boundsLibraryMockContract), txnFrom(from));
+  }
 
   public ceilLog10(
     value: BigNumber
