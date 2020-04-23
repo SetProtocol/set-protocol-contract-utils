@@ -31,5 +31,5 @@ yarn-error.log*
 # Snapshot
 blockchain/
 
-# Ouputs
+# Outputs
 deployments/outputs.ts
