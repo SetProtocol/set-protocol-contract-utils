@@ -3,7 +3,6 @@
 /artifacts/ts
 /build
 /dist
-/node_modules
 /transpiled
 /types/generated/*
 coverage.json
