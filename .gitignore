@@ -3,6 +3,7 @@
 /artifacts/ts
 /build
 /dist
+/node_modules
 /transpiled
 /types/generated/*
 coverage.json
@@ -30,5 +31,5 @@ yarn-error.log*
 # Snapshot
 blockchain/
 
-# Outputs
+# Ouputs
 deployments/outputs.ts

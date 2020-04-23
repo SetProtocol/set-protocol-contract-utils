@@ -1,3 +1,4 @@
+export { AddressArrayUtilsMockContract } from '../types/generated/address_array_utils_mock';
 export { BaseContract } from '../types/base_contract';
 export { BoundsLibraryMockContract } from '../types/generated/bounds_library_mock';
 export { AddressToAddressWhiteListContract } from '../types/generated/address_to_address_white_list';
@@ -7,6 +8,7 @@ export { Bytes32LibraryMockContract } from '../types/generated/bytes32_library_m
 export { CommonMathMockContract } from '../types/generated/common_math_mock';
 export { CommonValidationsLibraryMockContract } from '../types/generated/common_validations_library_mock';
 export { CompoundUtilsMockContract } from '../types/generated/compound_utils_mock';
+export { HashUtilsMockContract } from '../types/generated/hash_utils_mock';
 export { LimitOneUpgradeMockContract } from '../types/generated/limit_one_upgrade_mock';
 export { OracleWhiteListContract } from '../types/generated/oracle_white_list';
 export { ScaleValidationsMockContract } from '../types/generated/scale_validations_mock';
