@@ -1,6 +1,6 @@
   {
   "name": "set-protocol-contract-utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "dist/artifacts/index.js",
   "typings": "dist/typings/artifacts/index.d.ts",
   "files": [
@@ -25,7 +25,7 @@
     "coverage-cleanup": "find artifacts/ts -name \\*.js* -type f -delete && find test -name \\*.js* -type f -delete && find types -name \\*.js* -type f -delete && find utils -name \\*.js* -type f -delete",
     "coverage-continuous": "./node_modules/.bin/solidity-coverage",
     "coverage-setup": "yarn transpile && cp -r transpiled/artifacts/ts/* artifacts/ts/. && cp -r transpiled/test/contracts/* test/. && cp -r transpiled/types/* types/. && cp -r transpiled/utils/* utils/.",
-    "deploy-development": "bash scripts/deploy_development.sh",
+    "deploy-development": "bash scripts/deploy_development.sh && yarn transformJson",
     "delete-dev-addresses": "jq 'del(.development)' ./deployments/outputs.json > outputs.tmp && mv outputs.tmp ./deployments/outputs.json && bash scripts/generate_outputs.sh && git add .",
     "dist": "yarn setup && bash scripts/prepare_dist.sh",
     "generate-typings": "set-abi-gen --abis './build/contracts/*.json' --out './types/generated' --template './types/contract_templates/contract.mustache' --partials './types/contract_templates/partials/*.mustache'",
@@ -40,6 +40,7 @@
     "test-nocompile": "yarn transpile && yarn truffle-test-contracts",
     "test-continuous": "yarn deploy-development && yarn test",
     "transpile": "tsc",
+    "transformJson": "node scripts/transform_contract_json.js",
     "truffle-test-contracts": "truffle test `find transpiled/test/contracts/lib -name '*.spec.js'`",
     "prepublishOnly": "yarn dist",
     "flatten": "truffle-flattener contracts/managers/SocialTradingManager.sol"
