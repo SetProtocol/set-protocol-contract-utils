@@ -211,4 +211,23 @@ library AddressArrayUtils {
         }
         return true;
     }
+
+    /**
+     * Naive implementation of sort
+     * @return Returns a sorted array
+     */
+    function sort(address[] memory A) internal pure returns (address[] memory) {
+        uint256 length = A.length;
+        address[] memory newAddresses = A;
+        for (uint256 i = 0; i < length; i++) {
+            for (uint256 j = i + 1; j < length; j++) {
+                if (newAddresses[i] > newAddresses[j]) {
+                    address temp = newAddresses[i];
+                    newAddresses[i] = newAddresses[j];
+                    newAddresses[j] = temp;
+                }
+            }
+        }
+        return newAddresses;
+    }
 }

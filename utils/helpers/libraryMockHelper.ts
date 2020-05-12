@@ -1,11 +1,13 @@
 import { Address } from 'set-protocol-utils';
 import * as _ from 'lodash';
 import {
+  AddressArrayUtilsMockContract,
   BoundsLibraryMockContract,
   Bytes32LibraryMockContract,
   CommonValidationsLibraryMockContract,
   CommonMathMockContract,
   CompoundUtilsMockContract,
+  HashUtilsMockContract,
   ScaleValidationsMockContract
 } from '../contracts';
 import { BigNumber } from 'bignumber.js';
@@ -17,6 +19,7 @@ import {
 } from '../web3Helper';
 import { ZERO } from '../constants';
 
+const AddressArrayUtilsMock = importArtifactsFromSource('AddressArrayUtilsMock');
 const BoundsLibraryMock = importArtifactsFromSource('BoundsLibraryMock');
 const Bytes32Library = importArtifactsFromSource('Bytes32Library');
 const Bytes32LibraryMock = importArtifactsFromSource('Bytes32LibraryMock');
@@ -24,6 +27,7 @@ const CommonMathMock = importArtifactsFromSource('CommonMathMock');
 const CommonValidationsLibrary = importArtifactsFromSource('CommonValidationsLibrary');
 const CommonValidationsLibraryMock = importArtifactsFromSource('CommonValidationsLibraryMock');
 const CompoundUtilsMock = importArtifactsFromSource('CompoundUtilsMock');
+const HashUtilsMock = importArtifactsFromSource('HashUtilsMock');
 const ScaleValidationsMock = importArtifactsFromSource('ScaleValidationsMock');
 
 
@@ -35,6 +39,17 @@ export class LibraryMockHelper {
   }
 
   /* ============ Deployment ============ */
+
+  public async deployAddressArrayUtilsMockAsync(
+    from: Address = this._contractOwnerAddress
+  ): Promise<AddressArrayUtilsMockContract> {
+    const addressArrayUtils = await AddressArrayUtilsMock.new(txnFrom(from));
+
+    return new AddressArrayUtilsMockContract(
+      getContractInstance(addressArrayUtils),
+      txnFrom(from),
+    );
+  }
 
   public async deployCommonValidationsLibraryAsync(
     from: Address = this._contractOwnerAddress
@@ -83,6 +98,14 @@ export class LibraryMockHelper {
     const scaleValidationsMockContract = await ScaleValidationsMock.new(txnFrom(from));
 
     return new ScaleValidationsMockContract(getContractInstance(scaleValidationsMockContract), txnFrom(from));
+  }
+
+  public async deployHashUtilsMockAsync(
+    from: Address = this._contractOwnerAddress
+  ): Promise<HashUtilsMockContract> {
+    const hashUtilsMockContract = await HashUtilsMock.new(txnFrom(from));
+
+    return new HashUtilsMockContract(getContractInstance(hashUtilsMockContract), txnFrom(from));
   }
 
   public async deployBoundsLibraryMockAsync(
