@@ -22,7 +22,7 @@ contract('CommonValidationsLibrary', accounts => {
 
   let commonValidationsMockLibrary: CommonValidationsLibraryMockContract;
 
-  beforeEach(async () => {
+  before(async () => {
     commonValidationsMockLibrary = await libraryMockHelper.deployCommonValidationsLibraryAsync();
   });
 

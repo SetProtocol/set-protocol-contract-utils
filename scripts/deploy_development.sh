@@ -22,7 +22,7 @@
 # on networks *other* than development.
 
 # Deploy contracts onto development network
-truffle migrate --network development
+# truffle migrate --network development
 
 # Replace production artifacts with newly generated json artifacts
 rm artifacts/json/*

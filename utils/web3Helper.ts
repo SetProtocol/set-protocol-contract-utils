@@ -1,5 +1,6 @@
 const Web3 = require('web3'); // import web3 v1.0 constructor
 const BigNumber = require('bignumber.js');
+require('dotenv');
 import { version } from '../package.json';
 import { Address } from 'set-protocol-utils';
 import { DEFAULT_GAS, NULL_ADDRESS } from './constants';
@@ -50,7 +51,13 @@ export const linkLibrariesToDeploy = async (contract: any, libraries: any[], fro
       { from },
     );
 
-    await contract.link(library.contractName, truffleLibrary.address);
+    // Buidler has an overwritten link function that takes in an instance
+    console.log("ENV Variable", process.env.IS_BUIDLER);
+    if (process.env.IS_BUIDLER) {
+      await contract.link(truffleLibrary);
+    } else {
+      await contract.link(library.contractName, truffleLibrary.address);
+    }
   }));
 };
 
