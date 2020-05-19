@@ -1,6 +1,6 @@
 const Web3 = require('web3'); // import web3 v1.0 constructor
 const BigNumber = require('bignumber.js');
-require('dotenv');
+require('dotenv').config({ path: './.env'});
 import { version } from '../package.json';
 import { Address } from 'set-protocol-utils';
 import { DEFAULT_GAS, NULL_ADDRESS } from './constants';

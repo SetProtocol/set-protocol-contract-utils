@@ -18,7 +18,6 @@ pragma solidity 0.5.7;
 
 
 import { Ownable } from "openzeppelin-solidity/contracts/ownership/Ownable.sol";
-import "@nomiclabs/buidler/console.sol";
 
 import { TimeLockUpgradeV2 } from "./TimeLockUpgradeV2.sol";
 import { AddressArrayUtils } from "./AddressArrayUtils.sol";
@@ -105,8 +104,6 @@ contract OracleWhiteList is
             oracleWhiteList[_tokenAddress] == address(0),
             "OracleWhiteList.addTokenOraclePair: Token and Oracle pair already exists."
         );
-
-        console.log("hello, I'm happy", _tokenAddress);
 
         addresses.push(_tokenAddress);
         oracleWhiteList[_tokenAddress] = _oracleAddress;

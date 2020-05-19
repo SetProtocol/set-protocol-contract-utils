@@ -21,7 +21,7 @@
     "clean": "rm -rf build; rm -rf transpiled; rm -rf types/generated",
     "clean-chain": "rm -rf blockchain && cp -r snapshots/0x-Kyber-Compound blockchain",
     "buidler-clean": "rm -rf transpiled; rm -rf types/generated",
-    "buidler-compile": "rm -rf build && rm -rf cache && buidler compile",
+    "buidler-compile": "buidler compile",
     "buidler-test": "yarn buidler-compile && yarn buidler-setup && yarn transpile && buidler test",
     "buidler-setup": "yarn buidler-clean && yarn deploy-development && yarn generate-typings",
     "compile": "./node_modules/.bin/truffle compile --all",
