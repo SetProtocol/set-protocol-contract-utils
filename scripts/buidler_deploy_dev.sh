@@ -21,6 +21,10 @@
 # so that our new artifacts include the addresses of contracts deployed in production
 # on networks *other* than development.
 
+rm -rf transpiled
+
+rm -rf types/generated
+
 # Replace production artifacts with newly generated json artifacts
 rm artifacts/json/*
 
