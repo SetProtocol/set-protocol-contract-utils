@@ -50,7 +50,7 @@ export const linkLibrariesToDeploy = async (contract: any, libraries: any[], fro
       { from },
     );
 
-    if (process.env.IS_BUIDLER) {
+    if (process.env.IS_BUIDLER === 'true') {
       await contract.link(truffleLibrary);
     } else {
       await contract.link(library.contractName, truffleLibrary.address);

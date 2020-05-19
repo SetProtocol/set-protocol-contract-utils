@@ -24,13 +24,13 @@ contract('Bytes32Mock', accounts => {
 
   let bytes32Library: Bytes32LibraryMockContract;
 
-  before(async () => {
-    bytes32Library = await libraryMockHelper.deployBytes32LibraryAsync();
-  });
-
   describe('#testBytes32ToBytes', async () => {
     let subjectString: string;
     let subjectData: Bytes;
+
+    beforeEach(async () => {
+      bytes32Library = await libraryMockHelper.deployBytes32LibraryAsync();
+    });
 
     async function subject(data: Bytes): Promise<string> {
       return bytes32Library.testBytes32ToBytes.callAsync(
@@ -57,6 +57,10 @@ contract('Bytes32Mock', accounts => {
   describe('#testBytes32ToString', async () => {
     let subjectString: string;
     let subjectData: Bytes;
+
+    beforeEach(async () => {
+      bytes32Library = await libraryMockHelper.deployBytes32LibraryAsync();
+    });
 
     async function subject(data: Bytes): Promise<string> {
       return bytes32Library.testBytes32ToString.callAsync(
