@@ -46,13 +46,10 @@ export const linkLibrariesToDeploy = async (contract: any, libraries: any[], fro
   contract.setNetwork(50);
 
   await Promise.all(libraries.map(async library => {
-    console.log(library.contractName);
     const truffleLibrary = await library.new(
       { from },
     );
 
-    // Buidler has an overwritten link function that takes in an instance
-    console.log("ENV Variable", process.env.IS_BUIDLER);
     if (process.env.IS_BUIDLER) {
       await contract.link(truffleLibrary);
     } else {
