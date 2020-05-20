@@ -9,11 +9,11 @@ contract BoundsLibraryMock {
 
     BoundsLibrary.Bounds public bounds;
 
-    constructor(uint256 _min, uint256 _max)
+    constructor(uint256 _lower, uint256 _upper)
         public
     {
-        bounds.min = _min;
-        bounds.max = _max;
+        bounds.lower = _lower;
+        bounds.upper = _upper;
     }
 
     function testIsValid(BoundsLibrary.Bounds calldata _bounds) external pure {

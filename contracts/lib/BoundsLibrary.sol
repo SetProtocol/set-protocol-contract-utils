@@ -21,20 +21,20 @@ pragma experimental "ABIEncoderV2";
 library BoundsLibrary {
     /* ============ Structs ============ */
     struct Bounds {
-        uint256 min;
-        uint256 max;
+        uint256 lower;
+        uint256 upper;
     }
 
     /* ============ Functions ============ */
     function isValid(Bounds memory _bounds) internal pure returns(bool) {
-        return _bounds.max > _bounds.min;
+        return _bounds.upper >= _bounds.lower;
     }
 
     function isWithin(Bounds memory _bounds, uint256 _value) internal pure returns(bool) {
-        return _value > _bounds.max ? false : _value >= _bounds.min;
+        return _value >= _bounds.lower && _value <= _bounds.upper;
     }
 
     function isOutside(Bounds memory _bounds, uint256 _value) internal pure returns(bool) {
-        return !isWithin(_bounds, _value);
+        return _value < _bounds.lower || _value > _bounds.upper;
     }
 }

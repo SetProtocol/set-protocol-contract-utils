@@ -22,13 +22,13 @@ contract('BoundsLibrary', accounts => {
   const [ownerAccount] = accounts;
   const libraryMockHelper = new LibraryMockHelper(ownerAccount);
 
-  const minBound = ether(.25);
-  const maxBound = ether(.75);
+  const lowerBound = ether(.25);
+  const upperBound = ether(.75);
 
   let boundsLibrary: BoundsLibraryMockContract;
 
   beforeEach(async () => {
-    boundsLibrary = await libraryMockHelper.deployBoundsLibraryMockAsync(minBound, maxBound);
+    boundsLibrary = await libraryMockHelper.deployBoundsLibraryMockAsync(lowerBound, upperBound);
   });
 
   describe('#testIsValid', async () => {
@@ -37,8 +37,8 @@ contract('BoundsLibrary', accounts => {
 
     beforeEach(async () => {
       subjectBounds = {
-        min: ether(.4),
-        max: ether(.6),
+        lower: ether(.4),
+        upper: ether(.6),
       };
     });
 
@@ -49,20 +49,33 @@ contract('BoundsLibrary', accounts => {
       );
     }
 
-    it('returns true', async () => {
+    it('does not revert', async () => {
       await expectNoRevertError(subject());
     });
 
-    describe('when the max is less than the min', async () => {
+    describe('when the upper is less than the lower', async () => {
       beforeEach(async () => {
         subjectBounds = {
-          min: ether(.6),
-          max: ether(.4),
+          lower: ether(.6),
+          upper: ether(.4),
         };
       });
 
-      it('returns false', async () => {
+      it('reverts', async () => {
         await expectRevertError(subject());
+      });
+    });
+
+    describe('when the upper and lower are the same number', async () => {
+      beforeEach(async () => {
+        subjectBounds = {
+          lower: ether(.4),
+          upper: ether(.4),
+        };
+      });
+
+      it('does not revert', async () => {
+        await expectNoRevertError(subject());
       });
     });
   });
@@ -99,6 +112,30 @@ contract('BoundsLibrary', accounts => {
         expect(isWithin).to.be.false;
       });
     });
+
+    describe('when the value is on the lower bound', async () => {
+      beforeEach(async () => {
+        subjectValue = ether(.25);
+      });
+
+      it('returns false', async () => {
+        const isWithin = await subject();
+
+        expect(isWithin).to.be.true;
+      });
+    });
+
+    describe('when the value is on the upper bound', async () => {
+      beforeEach(async () => {
+        subjectValue = ether(.75);
+      });
+
+      it('returns false', async () => {
+        const isWithin = await subject();
+
+        expect(isWithin).to.be.true;
+      });
+    });
   });
 
   describe('#testIsOutside', async () => {
@@ -117,9 +154,9 @@ contract('BoundsLibrary', accounts => {
     }
 
     it('returns true', async () => {
-      const isWithin = await subject();
+      const isOutside = await subject();
 
-      expect(isWithin).to.be.true;
+      expect(isOutside).to.be.true;
     });
 
     describe('when the value is inside the bounds', async () => {
@@ -128,9 +165,33 @@ contract('BoundsLibrary', accounts => {
       });
 
       it('returns false', async () => {
-        const isWithin = await subject();
+        const isOutside = await subject();
 
-        expect(isWithin).to.be.false;
+        expect(isOutside).to.be.false;
+      });
+    });
+
+    describe('when the value is on the lower bound', async () => {
+      beforeEach(async () => {
+        subjectValue = ether(.25);
+      });
+
+      it('returns false', async () => {
+        const isOutside = await subject();
+
+        expect(isOutside).to.be.false;
+      });
+    });
+
+    describe('when the value is on the upper bound', async () => {
+      beforeEach(async () => {
+        subjectValue = ether(.75);
+      });
+
+      it('returns false', async () => {
+        const isOutside = await subject();
+
+        expect(isOutside).to.be.false;
       });
     });
   });
