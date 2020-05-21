@@ -53,14 +53,6 @@ export class {{contractName}}Contract extends BaseContract {
       wrapper.address = newContractInstance.options.address;
     });
   }
-  static async deployed(web3: Web3, defaults: Tx): Promise<{{contractName}}Contract> {
-    const web3Utils = new Web3Utils(web3);
-    const currentNetwork = await web3Utils.getNetworkIdAsync();
-    const { abi, networks }: { abi: any[]; networks: any } = ContractArtifacts;
-    const web3ContractInstance = new web3.eth.Contract(abi, networks[currentNetwork].address);
-
-    return new {{contractName}}Contract(web3ContractInstance, defaults);
-  }
   static async at(
     address: string,
     web3: Web3,
